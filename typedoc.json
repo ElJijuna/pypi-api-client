@@ -1,11 +1,9 @@
 {
+  "extends": ["./node_modules/super-configs/typedoc.json"],
   "entryPoints": ["src/index.ts"],
   "out": "docs",
   "name": "PyPI API Client",
   "readme": "none",
-  "excludeInternal": true,
-  "excludePrivate": true,
-  "excludeProtected": true,
   "navigationLinks": {
     "GitHub": "https://github.com/ElJijuna/pypi-api-client",
     "npm": "https://www.npmjs.com/package/pypi-api-client"
