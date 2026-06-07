@@ -1,0 +1,25 @@
+{
+  "name": "pypi-api-client",
+  "version": "0.0.1",
+  "description": "",
+  "homepage": "https://github.com/ElJijuna/pypi-api-client#readme",
+  "bugs": {
+    "url": "https://github.com/ElJijuna/pypi-api-client/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElJijuna/pypi-api-client.git"
+  },
+  "license": "MIT",
+  "author": "pilmee <pilmee@gmail.com>",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
+    "eslint": "^9.39.4",
+    "super-configs": "^1.11.0"
+  }
+}
