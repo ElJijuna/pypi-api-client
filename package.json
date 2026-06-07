@@ -60,5 +60,8 @@
     "tsup": "^8.4.0",
     "typedoc": "^0.28.0",
     "typescript": "^5.8.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
