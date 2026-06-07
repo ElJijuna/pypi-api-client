@@ -7,7 +7,7 @@
   "excludePrivate": true,
   "excludeProtected": true,
   "navigationLinks": {
-    "GitHub": "https://github.com/ElJijuna/pip-api-client",
+    "GitHub": "https://github.com/ElJijuna/pypi-api-client",
     "npm": "https://www.npmjs.com/package/pypi-api-client"
   }
 }
