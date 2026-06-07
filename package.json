@@ -1,6 +1,6 @@
 {
   "name": "pypi-api-client",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "description": "TypeScript client for the PyPI REST API",
   "main": "dist/index.cjs",
