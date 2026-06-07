@@ -148,7 +148,7 @@ export class PyPIClient {
       if (!response.ok) {
         throw new PyPIApiError(response.status, response.statusText);
       }
-      const data = await response.json() as T;
+      const data = (await response.json()) as T;
       this.emit('request', {
         url,
         method: 'GET',
@@ -193,8 +193,12 @@ export class PyPIClient {
    */
   package(name: string): PackageResource {
     return new PackageResource(
-      <T>(path: string, params?: Record<string, string | number | boolean>, baseUrl?: string, signal?: AbortSignal) =>
-        this.request<T>(path, params, baseUrl ?? 'api', signal),
+      <T>(
+        path: string,
+        params?: Record<string, string | number | boolean>,
+        baseUrl?: string,
+        signal?: AbortSignal,
+      ) => this.request<T>(path, params, baseUrl ?? 'api', signal),
       name,
     );
   }
@@ -205,9 +209,13 @@ export class PyPIClient {
  * @internal
  */
 function buildUrl(base: string, params?: Record<string, string | number | boolean>): string {
-  if (!params) return base;
+  if (!params) {
+    return base;
+  }
   const entries = Object.entries(params).filter(([, v]) => v !== undefined);
-  if (entries.length === 0) return base;
+  if (entries.length === 0) {
+    return base;
+  }
   const search = new URLSearchParams(entries.map(([k, v]) => [k, String(v)]));
   return `${base}?${search.toString()}`;
 }

@@ -124,12 +124,22 @@ describe('PackageResource', () => {
     });
 
     it('throws PyPIApiError on 404', async () => {
-      mockFetch.mockResolvedValueOnce({ ok: false, status: 404, statusText: 'Not Found', json: jest.fn() });
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 404,
+        statusText: 'Not Found',
+        json: jest.fn(),
+      });
       await expect(pip.package('nonexistent-xyz').get()).rejects.toThrow(PyPIApiError);
     });
 
     it('throws PyPIApiError with correct status code', async () => {
-      mockFetch.mockResolvedValueOnce({ ok: false, status: 404, statusText: 'Not Found', json: jest.fn() });
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 404,
+        statusText: 'Not Found',
+        json: jest.fn(),
+      });
       try {
         await pip.package('nonexistent-xyz').get();
       } catch (err) {
@@ -256,7 +266,9 @@ describe('PackageResource', () => {
 
     it('accepts date range params', async () => {
       mockResponse(MOCK_BREAKDOWN);
-      await pip.package('requests').downloadsByPythonMajor({ start_date: '2024-01-01', end_date: '2024-01-31' });
+      await pip
+        .package('requests')
+        .downloadsByPythonMajor({ start_date: '2024-01-01', end_date: '2024-01-31' });
       expect(mockFetch).toHaveBeenCalledWith(
         'https://pypistats.org/api/packages/requests/python_major?start_date=2024-01-01&end_date=2024-01-31',
         expect.any(Object),

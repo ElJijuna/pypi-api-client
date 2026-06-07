@@ -1,5 +1,9 @@
 import type { PyPIProject, PyPIProjectInfo, PyPIFile, PyPIVulnerability } from '../domain/Project';
-import type { PyPIRecentDownloads, PyPIBreakdownDownloads, PyPIDownloadParams } from '../domain/Downloads';
+import type {
+  PyPIRecentDownloads,
+  PyPIBreakdownDownloads,
+  PyPIDownloadParams,
+} from '../domain/Downloads';
 import { VersionResource, type RequestFn } from './VersionResource';
 
 /**
@@ -151,7 +155,10 @@ export class PackageResource implements PromiseLike<PyPIProject> {
    * @param params - Optional `start_date` / `end_date` filters (`YYYY-MM-DD`)
    * @param signal - Optional `AbortSignal` to cancel the request
    */
-  async downloadsByPythonMajor(params?: PyPIDownloadParams, signal?: AbortSignal): Promise<PyPIBreakdownDownloads> {
+  async downloadsByPythonMajor(
+    params?: PyPIDownloadParams,
+    signal?: AbortSignal,
+  ): Promise<PyPIBreakdownDownloads> {
     return this.request<PyPIBreakdownDownloads>(
       `/api/packages/${encodeURIComponent(this.name)}/python_major`,
       params as Record<string, string>,
@@ -168,7 +175,10 @@ export class PackageResource implements PromiseLike<PyPIProject> {
    * @param params - Optional `start_date` / `end_date` filters (`YYYY-MM-DD`)
    * @param signal - Optional `AbortSignal` to cancel the request
    */
-  async downloadsByPythonMinor(params?: PyPIDownloadParams, signal?: AbortSignal): Promise<PyPIBreakdownDownloads> {
+  async downloadsByPythonMinor(
+    params?: PyPIDownloadParams,
+    signal?: AbortSignal,
+  ): Promise<PyPIBreakdownDownloads> {
     return this.request<PyPIBreakdownDownloads>(
       `/api/packages/${encodeURIComponent(this.name)}/python_minor`,
       params as Record<string, string>,
@@ -185,7 +195,10 @@ export class PackageResource implements PromiseLike<PyPIProject> {
    * @param params - Optional `start_date` / `end_date` filters (`YYYY-MM-DD`)
    * @param signal - Optional `AbortSignal` to cancel the request
    */
-  async downloadsBySystem(params?: PyPIDownloadParams, signal?: AbortSignal): Promise<PyPIBreakdownDownloads> {
+  async downloadsBySystem(
+    params?: PyPIDownloadParams,
+    signal?: AbortSignal,
+  ): Promise<PyPIBreakdownDownloads> {
     return this.request<PyPIBreakdownDownloads>(
       `/api/packages/${encodeURIComponent(this.name)}/system`,
       params as Record<string, string>,
@@ -202,7 +215,10 @@ export class PackageResource implements PromiseLike<PyPIProject> {
    * @param params - Optional `start_date` / `end_date` filters (`YYYY-MM-DD`)
    * @param signal - Optional `AbortSignal` to cancel the request
    */
-  async downloadsByMirrors(params?: PyPIDownloadParams, signal?: AbortSignal): Promise<PyPIBreakdownDownloads> {
+  async downloadsByMirrors(
+    params?: PyPIDownloadParams,
+    signal?: AbortSignal,
+  ): Promise<PyPIBreakdownDownloads> {
     return this.request<PyPIBreakdownDownloads>(
       `/api/packages/${encodeURIComponent(this.name)}/overall`,
       params as Record<string, string>,

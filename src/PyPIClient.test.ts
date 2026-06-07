@@ -91,7 +91,11 @@ describe('PyPIClient', () => {
 
     it('uses custom statsApiUrl for stats requests', async () => {
       const client = new PyPIClient({ statsApiUrl: 'https://custom-stats.example.com' });
-      mockResponse({ data: { last_day: 0, last_week: 0, last_month: 0 }, package: 'requests', type: 'recent_downloads' });
+      mockResponse({
+        data: { last_day: 0, last_week: 0, last_month: 0 },
+        package: 'requests',
+        type: 'recent_downloads',
+      });
       await client.package('requests').downloads();
       expect(mockFetch).toHaveBeenCalledWith(
         'https://custom-stats.example.com/api/packages/requests/recent',
@@ -133,12 +137,19 @@ describe('PyPIClient', () => {
       await pip.package('requests').get();
       expect(mockFetch).toHaveBeenCalledWith(
         expect.any(String),
-        expect.objectContaining({ headers: expect.objectContaining({ Accept: 'application/json' }) }),
+        expect.objectContaining({
+          headers: expect.objectContaining({ Accept: 'application/json' }),
+        }),
       );
     });
 
     it('throws PyPIApiError on non-2xx response', async () => {
-      mockFetch.mockResolvedValueOnce({ ok: false, status: 404, statusText: 'Not Found', json: jest.fn() });
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 404,
+        statusText: 'Not Found',
+        json: jest.fn(),
+      });
       await expect(pip.package('nonexistent-xyz').get()).rejects.toThrow(PyPIApiError);
     });
   });
@@ -172,11 +183,17 @@ describe('PyPIClient', () => {
     it('emits request event with error on failure', async () => {
       const handler = jest.fn();
       pip.on('request', handler);
-      mockFetch.mockResolvedValueOnce({ ok: false, status: 404, statusText: 'Not Found', json: jest.fn() });
-      await pip.package('requests').get().catch(() => undefined);
-      expect(handler).toHaveBeenCalledWith(
-        expect.objectContaining({ error: expect.any(Error) }),
-      );
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 404,
+        statusText: 'Not Found',
+        json: jest.fn(),
+      });
+      await pip
+        .package('requests')
+        .get()
+        .catch(() => undefined);
+      expect(handler).toHaveBeenCalledWith(expect.objectContaining({ error: expect.any(Error) }));
     });
 
     it('is chainable', () => {

@@ -61,8 +61,18 @@ const MOCK_VERSION: PyPIVersionInfo = {
 
 const MOCK_DEPS = {
   nodes: [
-    { versionKey: { system: 'PYPI', name: 'requests', version: '2.31.0' }, relation: 'SELF', bundled: false, errors: [] },
-    { versionKey: { system: 'PYPI', name: 'urllib3', version: '2.0.4' }, relation: 'DIRECT', bundled: false, errors: [] },
+    {
+      versionKey: { system: 'PYPI', name: 'requests', version: '2.31.0' },
+      relation: 'SELF',
+      bundled: false,
+      errors: [],
+    },
+    {
+      versionKey: { system: 'PYPI', name: 'urllib3', version: '2.0.4' },
+      relation: 'DIRECT',
+      bundled: false,
+      errors: [],
+    },
   ],
   edges: [{ fromNode: 0, toNode: 1, requirement: '>=1.21.1,<3' }],
 };
@@ -106,7 +116,12 @@ describe('VersionResource', () => {
     });
 
     it('throws PyPIApiError on 404', async () => {
-      mockFetch.mockResolvedValueOnce({ ok: false, status: 404, statusText: 'Not Found', json: jest.fn() });
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 404,
+        statusText: 'Not Found',
+        json: jest.fn(),
+      });
       await expect(pip.package('requests').version('0.0.0').get()).rejects.toThrow(PyPIApiError);
     });
 
@@ -169,8 +184,8 @@ describe('VersionResource', () => {
       mockResponse(MOCK_DEPS);
       const deps = await pip.package('requests').version('2.31.0').dependencies();
       expect(deps.nodes).toHaveLength(2);
-      const self = deps.nodes.find(n => n.relation === 'SELF');
-      const direct = deps.nodes.find(n => n.relation === 'DIRECT');
+      const self = deps.nodes.find((n) => n.relation === 'SELF');
+      const direct = deps.nodes.find((n) => n.relation === 'DIRECT');
       expect(self?.versionKey.name).toBe('requests');
       expect(direct?.versionKey.name).toBe('urllib3');
     });
@@ -194,7 +209,7 @@ describe('VersionResource', () => {
 
     it('dependencies() on latest resolves version first', async () => {
       mockResponse({ ...MOCK_VERSION, releases: {} }); // for get()
-      mockResponse(MOCK_DEPS);                         // for deps.dev
+      mockResponse(MOCK_DEPS); // for deps.dev
       await pip.package('requests').latest().dependencies();
       expect(mockFetch).toHaveBeenCalledTimes(2);
       expect(mockFetch).toHaveBeenNthCalledWith(
